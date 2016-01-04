@@ -107,12 +107,21 @@ registration in Spanish Baroque Organ music.</font></td>
         extractor(validPage, validSpider, validNext);
         validPage.data.msg.should.equal('hi');
     });
+
     it('should get that email off the page and into an email property on page.data', function () {
         var extractor = regexDataExtractor({
             email: /mailto:([^"]+)/
         });
         extractor(validPage, validSpider, validNext);
         validPage.data.email.should.equal('gecko@dustyfeet.com');
+    });
+
+    it('should not throw an error if the page content has not been set', function() {
+        var extractor = regexDataExtractor({
+            email: /mailto:([^"]+)/
+        });
+        delete validPage.content;
+        extractor(validPage, validSpider, validNext);
     });
 
 
