@@ -88,23 +88,24 @@ registration in Spanish Baroque Organ music.</font></td>
         validSpider = {};
         validNext = function () {
         }
+        validPage.spider = validSpider;
     });
 
     it('should call next', function (done) {
         var extractor = regexDataExtractor(validOptions);
-        extractor(validPage, validSpider, done);
+        extractor._transform(validPage, done);
     });
 
     it('should create a data property on the page', function () {
         var extractor = regexDataExtractor(validOptions);
-        extractor(validPage, validSpider, validNext);
+        extractor._transform(validPage, validNext);
         should.exist(validPage.data);
     });
 
     it('should not overwrite a data property on the page', function () {
         validPage.data = {msg: 'hi'};
         var extractor = regexDataExtractor(validOptions);
-        extractor(validPage, validSpider, validNext);
+        extractor._transform(validPage, validNext);
         validPage.data.msg.should.equal('hi');
     });
 
@@ -112,8 +113,16 @@ registration in Spanish Baroque Organ music.</font></td>
         var extractor = regexDataExtractor({
             email: /mailto:([^"]+)/
         });
-        extractor(validPage, validSpider, validNext);
+        extractor._transform(validPage, validNext);
         validPage.data.email.should.equal('gecko@dustyfeet.com');
+    });
+
+    it('should not get that email off the page and into an email property on page.data', function () {
+        var extractor = regexDataExtractor({
+            email: /balaleigh:([^"]+)/
+        });
+        extractor._transform(validPage, validNext);
+        should.not.exist(validPage.data.email);
     });
 
     it('should not throw an error if the page content has not been set', function() {
@@ -121,7 +130,7 @@ registration in Spanish Baroque Organ music.</font></td>
             email: /mailto:([^"]+)/
         });
         delete validPage.content;
-        extractor(validPage, validSpider, validNext);
+        extractor._transform(validPage, validNext);
     });
 
 

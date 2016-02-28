@@ -1,5 +1,9 @@
+"use strict";
+
+let through2 = require('through2');
+
 module.exports = function (options) {
-    return function (page, spider, next) {
+    return through2.obj(function (page, next) {
         page.data = page.data || {};
         if (page.content) {
             Object.keys(options).forEach(function (key) {
@@ -10,5 +14,5 @@ module.exports = function (options) {
             });
         }
         next();
-    }
+    });
 };

@@ -7,7 +7,10 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --recursive",
+    "test-watch": "mocha --recursive --watch",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha --check-leaks test/ --recursive",
+    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*"
   },
   "keywords": [
     "mrspider",
@@ -22,6 +25,7 @@
   "dependencies": {
     "chai": "^3.4.1",
     "istanbul": "^0.4.1",
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "through2": "^2.0.1"
   }
 }
