@@ -93,19 +93,19 @@ registration in Spanish Baroque Organ music.</font></td>
 
     it('should call next', function (done) {
         var extractor = regexDataExtractor(validOptions);
-        extractor._transform(validPage, done);
+        extractor._transform(validPage, 'utf8', done);
     });
 
     it('should create a data property on the page', function () {
         var extractor = regexDataExtractor(validOptions);
-        extractor._transform(validPage, validNext);
+        extractor._transform(validPage, 'utf8', validNext);
         should.exist(validPage.data);
     });
 
     it('should not overwrite a data property on the page', function () {
         validPage.data = {msg: 'hi'};
         var extractor = regexDataExtractor(validOptions);
-        extractor._transform(validPage, validNext);
+        extractor._transform(validPage, 'utf8', validNext);
         validPage.data.msg.should.equal('hi');
     });
 
@@ -113,7 +113,7 @@ registration in Spanish Baroque Organ music.</font></td>
         var extractor = regexDataExtractor({
             email: /mailto:([^"]+)/
         });
-        extractor._transform(validPage, validNext);
+        extractor._transform(validPage, 'utf8', validNext);
         validPage.data.email.should.equal('gecko@dustyfeet.com');
     });
 
@@ -121,7 +121,7 @@ registration in Spanish Baroque Organ music.</font></td>
         var extractor = regexDataExtractor({
             email: /balaleigh:([^"]+)/
         });
-        extractor._transform(validPage, validNext);
+        extractor._transform(validPage, 'utf8', validNext);
         should.not.exist(validPage.data.email);
     });
 
@@ -130,7 +130,7 @@ registration in Spanish Baroque Organ music.</font></td>
             email: /mailto:([^"]+)/
         });
         delete validPage.content;
-        extractor._transform(validPage, validNext);
+        extractor._transform(validPage, 'utf8', validNext);
     });
 
 
