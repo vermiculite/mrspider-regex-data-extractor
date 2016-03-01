@@ -13,6 +13,7 @@ module.exports = function (options) {
                 }
             });
         }
+        this.push(page);
         next();
     });
 };
