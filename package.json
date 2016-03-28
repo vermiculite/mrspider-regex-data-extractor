@@ -1,6 +1,6 @@
 {
   "name": "mrspider-regex-data-extractor",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "mrspider middleware to extract data using regular expressions.",
   "main": "index.js",
   "directories": {
